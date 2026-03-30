@@ -1,0 +1,32 @@
+name: CTP2 Daily Report
+
+on:
+  schedule:
+    - cron: '30 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests pytz python-dotenv beautifulsoup4
+
+      - name: Run daily report
+        env:
+          TRACKER_URL: https://tracker.zingplay.com
+          TRACKER_SESSION: ${{ secrets.TRACKER_SESSION }}
+          TRACKER_APP_NAME: ctp2_vn
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_THREAD_ID: ${{ secrets.TELEGRAM_THREAD_ID }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          SUPERSET_URL: https://bitool-hn.zingplay.com/
+          SUPERSET_DB_ID: 5
+        run: python main.py
