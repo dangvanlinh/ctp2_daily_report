@@ -10,7 +10,7 @@ import requests
 if sys.stdout.encoding and sys.stdout.encoding.lower() != 'utf-8':
     sys.stdout.reconfigure(encoding='utf-8')
 
-from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID
+from config import TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, TELEGRAM_THREAD_ID
 
 logger = logging.getLogger(__name__)
 
@@ -42,6 +42,8 @@ def send_telegram(text: str) -> bool:
             "parse_mode": "HTML",
             "disable_web_page_preview": True,
         }
+        if TELEGRAM_THREAD_ID:
+            payload["message_thread_id"] = int(TELEGRAM_THREAD_ID)
         try:
             resp = requests.post(url, json=payload, timeout=10)
             resp.raise_for_status()

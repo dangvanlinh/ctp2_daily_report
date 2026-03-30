@@ -17,6 +17,7 @@ TRACKER_APP_NAME = os.getenv("TRACKER_APP_NAME", "cotyphu")
 # Telegram
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
+TELEGRAM_THREAD_ID = os.getenv("TELEGRAM_THREAD_ID", "")  # topic/thread trong supergroup
 
 # Claude API
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
